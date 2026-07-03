@@ -24,6 +24,28 @@ function isProjectStatus(value: string): value is ProjectStatus {
   return PROJECT_STATUS_OPTIONS.some((option) => option.value === value);
 }
 
+function getFieldError(errorMessage: string | null, field: 'name' | 'ownerName' | 'status'): string | null {
+  if (errorMessage === null) {
+    return null;
+  }
+
+  const normalizedMessage = errorMessage.toLowerCase();
+
+  if (field === 'name' && /(^|\W)name(\W|$)/i.test(errorMessage)) {
+    return errorMessage;
+  }
+
+  if (field === 'ownerName' && (normalizedMessage.includes('owner name') || normalizedMessage.includes('ownername'))) {
+    return errorMessage;
+  }
+
+  if (field === 'status' && normalizedMessage.includes('status')) {
+    return errorMessage;
+  }
+
+  return null;
+}
+
 export function ProjectsPage(): JSX.Element {
   const [formState, setFormState] = useState<CreateProjectRequest>(INITIAL_FORM_STATE);
   const [projects, setProjects] = useState<ReadonlyArray<ProjectResponse>>([]);
@@ -79,6 +101,11 @@ export function ProjectsPage(): JSX.Element {
     }
   };
 
+  const nameError = getFieldError(errorMessage, 'name');
+  const ownerNameError = getFieldError(errorMessage, 'ownerName');
+  const statusError = getFieldError(errorMessage, 'status');
+  const fieldErrorMessage = nameError ?? ownerNameError ?? statusError;
+
   return (
     <main>
       <h2>Projects</h2>
@@ -88,12 +115,14 @@ export function ProjectsPage(): JSX.Element {
           label="Project name"
           value={formState.name}
           onChange={(name) => setFormState((current) => ({ ...current, name }))}
+          error={nameError}
         />
         <Input
           id="owner-name"
           label="Owner name"
           value={formState.ownerName}
           onChange={(ownerName) => setFormState((current) => ({ ...current, ownerName }))}
+          error={ownerNameError}
         />
         <Select
           id="project-status"
@@ -105,11 +134,12 @@ export function ProjectsPage(): JSX.Element {
               setFormState((current) => ({ ...current, status }));
             }
           }}
+          error={statusError}
         />
         <Button type="submit">Create project</Button>
       </form>
       {successMessage ? <p role="status">{successMessage}</p> : null}
-      {errorMessage ? <p role="alert">{errorMessage}</p> : null}
+      {fieldErrorMessage === null && errorMessage ? <p role="alert">{errorMessage}</p> : null}
       <section aria-label="Projects table">
         <DataTable
           caption="Projects"
