@@ -7,9 +7,9 @@ export interface KpiCardProps {
 
 export function KpiCard({ label, value }: KpiCardProps): JSX.Element {
   return (
-    <article>
+    <article aria-label={label}>
       <h3>{label}</h3>
-      <p>{value}</p>
+      <p role="status">{value}</p>
     </article>
   );
 }

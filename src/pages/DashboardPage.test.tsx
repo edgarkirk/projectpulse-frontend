@@ -97,7 +97,22 @@ describe('DashboardPage', () => {
     render(<DashboardPage />);
 
     expect(await screen.findByRole('heading', { name: /total projects/i })).toBeInTheDocument();
-    expect(screen.getAllByRole('row')).toHaveLength(6);
+    expect(screen.getByRole('heading', { name: /active/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /at risk/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /blocked/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /on hold/i })).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('row')).toHaveLength(6);
+    });
+
+    expect(screen.getByRole('table', { name: /recent projects/i })).toBeInTheDocument();
+    expect(screen.getByText('Atlas Migration')).toBeInTheDocument();
+    expect(screen.getByText('North Star')).toBeInTheDocument();
+    expect(screen.getByText('Harbor')).toBeInTheDocument();
+    expect(screen.getByText('Summit')).toBeInTheDocument();
+    expect(screen.getByText('Orbit')).toBeInTheDocument();
+    expect(screen.queryByText('Beacon')).not.toBeInTheDocument();
     expect(screen.queryByText('Pioneer')).not.toBeInTheDocument();
   });
 });

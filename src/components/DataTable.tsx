@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { ProjectResponse } from '../types';
+import { StatusTag } from './StatusTag';
 
 export interface DataTableProps {
   caption: string;
@@ -11,7 +12,7 @@ export interface DataTableProps {
 
 export function DataTable({ caption, columns, rows, emptyMessage }: DataTableProps): JSX.Element {
   if (rows.length === 0) {
-    return <p>{emptyMessage}</p>;
+    return <p role="status">{emptyMessage}</p>;
   }
 
   return (
@@ -20,7 +21,9 @@ export function DataTable({ caption, columns, rows, emptyMessage }: DataTablePro
       <thead>
         <tr>
           {columns.map((column) => (
-            <th key={column}>{column}</th>
+            <th key={column} scope="col">
+              {column}
+            </th>
           ))}
         </tr>
       </thead>
@@ -29,7 +32,9 @@ export function DataTable({ caption, columns, rows, emptyMessage }: DataTablePro
           <tr key={row.id}>
             <td>{row.name}</td>
             <td>{row.ownerName}</td>
-            <td>{row.status}</td>
+            <td>
+              <StatusTag status={row.status} />
+            </td>
           </tr>
         ))}
       </tbody>

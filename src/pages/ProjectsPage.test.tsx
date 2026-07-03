@@ -46,6 +46,8 @@ describe('ProjectsPage', () => {
     expect(await screen.findByLabelText(/project name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/owner name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/status/i)).toBeInTheDocument();
+    expect(await screen.findByText('Atlas Migration')).toBeInTheDocument();
+    expect(screen.getByRole('table', { name: /projects/i })).toBeInTheDocument();
   });
 
   it('should_createTheProjectAndRefreshTheList_whenTheFormIsSubmitted', async () => {
@@ -57,7 +59,7 @@ describe('ProjectsPage', () => {
 
     await user.type(await screen.findByLabelText(/project name/i), 'North Star');
     await user.type(screen.getByLabelText(/owner name/i), 'Sam Lee');
-    await user.selectOptions(screen.getByLabelText(/status/i), 'Blocked');
+    await user.selectOptions(screen.getByRole('combobox', { name: /status/i }), 'Blocked');
     await user.click(screen.getByRole('button', { name: /create project/i }));
 
     await waitFor(() => {
@@ -68,7 +70,7 @@ describe('ProjectsPage', () => {
       } satisfies CreateProjectRequest);
     });
 
-    expect(screen.getByRole('status')).toHaveTextContent("Project 'North Star' created successfully");
+    expect(await screen.findByRole('status')).toHaveTextContent("Project 'North Star' created successfully");
     expect(screen.getByText('North Star')).toBeInTheDocument();
   });
 
@@ -81,7 +83,7 @@ describe('ProjectsPage', () => {
 
     await user.type(await screen.findByLabelText(/project name/i), 'North Star');
     await user.type(screen.getByLabelText(/owner name/i), 'Sam Lee');
-    await user.selectOptions(screen.getByLabelText(/status/i), 'Blocked');
+    await user.selectOptions(screen.getByRole('combobox', { name: /status/i }), 'Blocked');
     await user.click(screen.getByRole('button', { name: /create project/i }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Project name is already taken');

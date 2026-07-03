@@ -9,12 +9,25 @@ export interface InputProps {
   error?: string | null;
 }
 
-export function Input({ id, label, value, placeholder, error }: InputProps): JSX.Element {
+export function Input({ id, label, value, onChange, placeholder, error }: InputProps): JSX.Element {
+  const errorId = `${id}-error`;
+
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <input id={id} value={value} placeholder={placeholder} readOnly />
-      {error ? <p>{error}</p> : null}
+      <input
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        onChange={(event) => onChange(event.target.value)}
+        aria-invalid={error ? 'true' : 'false'}
+        aria-describedby={error ? errorId : undefined}
+      />
+      {error ? (
+        <p id={errorId} role="alert">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }
