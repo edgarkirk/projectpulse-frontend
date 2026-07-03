@@ -133,4 +133,27 @@ describe('ProjectsPage', () => {
     );
     expect(nameInput).toHaveValue('Atlas Migration');
   });
+
+  it('should_showApiMessage_verbatim_when_createReturnsObjectWithMessage', async () => {
+    const user = userEvent.setup();
+
+    jest.mocked(fetchProjects).mockResolvedValueOnce([]);
+    jest.mocked(createProject).mockRejectedValueOnce({
+      message: 'Project name Atlas Migration is already taken',
+    });
+
+    render(<ProjectsPage />);
+
+    const nameInput = await screen.findByLabelText(/project name/i);
+    const ownerInput = screen.getByLabelText(/owner name/i);
+
+    await user.type(nameInput, 'Atlas Migration');
+    await user.type(ownerInput, 'Jane Doe');
+    await user.click(screen.getByRole('button', { name: /create project/i }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Project name Atlas Migration is already taken'
+    );
+  });
+
 });

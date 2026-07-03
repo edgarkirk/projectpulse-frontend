@@ -32,6 +32,25 @@ const byNewestFirst = (left: ProjectResponse, right: ProjectResponse): number =>
   return new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime();
 };
 
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === 'string' && error.length > 0) {
+    return error;
+  }
+
+  if (typeof error === 'object' && error !== null) {
+    const messageDescriptor = Object.getOwnPropertyDescriptor(error, 'message');
+    if (typeof messageDescriptor?.value === 'string' && messageDescriptor.value.length > 0) {
+      return messageDescriptor.value;
+    }
+  }
+
+  return 'Failed to create project';
+};
+
 export const ProjectsPage = () => {
   const [projects, setProjects] = useState<ProjectResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +77,7 @@ export const ProjectsPage = () => {
           return;
         }
 
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load projects');
+        setErrorMessage(getErrorMessage(error));
       } finally {
         if (isActive) {
           setIsLoading(false);
@@ -133,7 +152,7 @@ export const ProjectsPage = () => {
       setStatus('Active');
       setSuccessMessage(`Project '${createdProject.name}' created successfully.`);
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to create project');
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsSubmitting(false);
     }
