@@ -1,0 +1,29 @@
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-tag--success {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.status-tag--warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.status-tag--error {
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+}
+
+.status-tag--info {
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
+}

@@ -1,3 +1,5 @@
+import './StatusTag.css';
+
 import type { ProjectStatus } from '../types';
 
 export interface StatusTagProps {

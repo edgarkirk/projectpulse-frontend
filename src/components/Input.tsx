@@ -1,5 +1,7 @@
 import type { ChangeEvent } from 'react';
 
+import './Input.css';
+
 export interface InputProps {
   id: string;
   label: string;
@@ -17,7 +19,7 @@ export const Input = ({ errorMessage, id, label, onChange, placeholder, value }:
   const errorId = `${id}-error`;
 
   return (
-    <div>
+    <div className="input-field">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}

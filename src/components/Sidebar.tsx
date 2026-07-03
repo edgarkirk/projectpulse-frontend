@@ -1,5 +1,7 @@
 import type { MouseEvent } from 'react';
 
+import './Sidebar.css';
+
 import type { RouteName } from '../types';
 
 export interface SidebarProps {
@@ -19,7 +21,7 @@ export const Sidebar = ({ activeRoute, onNavigate }: SidebarProps) => {
   };
 
   return (
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" className="sidebar">
       <ul>
         {navItems.map((item) => (
           <li key={item.route}>

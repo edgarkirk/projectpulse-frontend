@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import './DataTable.css';
+
 export interface DataTableColumn<T extends Record<string, ReactNode>> {
   key: keyof T;
   header: string;
@@ -25,7 +27,7 @@ export const DataTable = <T extends Record<string, ReactNode>>({
   }
 
   return (
-    <table aria-label={ariaLabel}>
+    <table aria-label={ariaLabel} className="data-table">
       <thead>
         <tr>
           {columns.map((column) => (

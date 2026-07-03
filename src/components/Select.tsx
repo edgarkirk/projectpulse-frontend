@@ -1,5 +1,7 @@
 import type { ChangeEvent } from 'react';
 
+import './Select.css';
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -20,7 +22,7 @@ export const Select = ({ ariaLabel, id, label, onChange, options, value }: Selec
   };
 
   return (
-    <div>
+    <div className="select-field">
       <label htmlFor={id}>{label}</label>
       <select id={id} value={value} onChange={handleChange} aria-label={ariaLabel}>
         {options.map((option) => (
