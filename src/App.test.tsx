@@ -1,3 +1,11 @@
+jest.mock('./pages/DashboardPage', () => ({
+  DashboardPage: () => null,
+}));
+
+jest.mock('./pages/ProjectsPage', () => ({
+  ProjectsPage: () => null,
+}));
+
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 

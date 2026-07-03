@@ -1,3 +1,5 @@
+import type { ChangeEvent } from 'react';
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -12,6 +14,21 @@ export interface SelectProps {
   ariaLabel?: string;
 }
 
-export const Select = ({ label }: SelectProps) => {
-  return <div>{label}</div>;
+export const Select = ({ ariaLabel, id, label, onChange, options, value }: SelectProps) => {
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>): void => {
+    onChange(event.target.value);
+  };
+
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} value={value} onChange={handleChange} aria-label={ariaLabel}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 };

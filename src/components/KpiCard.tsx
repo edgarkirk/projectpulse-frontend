@@ -5,8 +5,8 @@ export interface KpiCardProps {
 
 export const KpiCard = ({ label, value }: KpiCardProps) => {
   return (
-    <section>
-      <h2>{label}</h2>
+    <section className="kpi-card" aria-label={label}>
+      <h2>{label}: {value}</h2>
       <p>{value}</p>
     </section>
   );

@@ -1,16 +1,23 @@
+import type { ReactNode } from 'react';
 import { render, screen, within } from '@testing-library/react';
 
-import { DataTable } from './DataTable';
+import { DataTable, type DataTableColumn } from './DataTable';
 import { StatusTag } from './StatusTag';
 
 describe('DataTable', () => {
-  const columns = [
+  type DataTableRow = {
+    name: string;
+    ownerName: string;
+    status: ReactNode;
+  };
+
+  const columns: Array<DataTableColumn<DataTableRow>> = [
     { key: 'name', header: 'Name' },
     { key: 'ownerName', header: 'Owner' },
     { key: 'status', header: 'Status' },
   ];
 
-  const rows = [
+  const rows: DataTableRow[] = [
     { name: 'Atlas Migration', ownerName: 'Jane Doe', status: <StatusTag status="Active" /> },
     { name: 'Northwind Refresh', ownerName: 'Ada Lovelace', status: <StatusTag status="At Risk" /> },
   ];

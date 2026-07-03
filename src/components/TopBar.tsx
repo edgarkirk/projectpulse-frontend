@@ -1,3 +1,7 @@
 export const TopBar = () => {
-  return <header>Top bar</header>;
+  return (
+    <header className="top-bar">
+      <span>ProjectPulse</span>
+    </header>
+  );
 };

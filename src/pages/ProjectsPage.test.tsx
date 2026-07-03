@@ -31,7 +31,7 @@ describe('ProjectsPage', () => {
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
     await waitFor(() => expect(fetchProjects).toHaveBeenCalledTimes(1));
 
-    expect(screen.getByLabelText(/project name/i)).toBeInTheDocument();
+    expect(await screen.findByLabelText(/project name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/owner name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/project status/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /create project/i })).toBeInTheDocument();
@@ -103,7 +103,6 @@ describe('ProjectsPage', () => {
     const nameInput = await screen.findByLabelText(/project name/i);
     const ownerInput = screen.getByLabelText(/owner name/i);
 
-    await user.type(nameInput, '');
     await user.type(ownerInput, 'Jane Doe');
     await user.click(screen.getByRole('button', { name: /create project/i }));
 
