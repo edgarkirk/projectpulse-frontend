@@ -235,6 +235,79 @@ describe('App shell and pages', () => {
     expect(screen.getByRole('table', { name: /projects/i })).toHaveTextContent('Atlas Migration');
   });
 
+  it('should_keep_the_dashboard_summary_in_sync_after_creating_a_project_from_the_projects_page', async () => {
+    const user = userEvent.setup();
+    const initialSummary: DashboardSummary = {
+      totalProjects: 1,
+      active: 1,
+      atRisk: 0,
+      blocked: 0,
+      onHold: 0,
+    };
+    const initialProjects: ProjectResponse[] = [
+      makeProject(
+        '11111111-1111-1111-1111-111111111111',
+        'Atlas Migration',
+        'Jane Doe',
+        'Active',
+        '2026-07-04T21:00:00.000Z'
+      ),
+    ];
+    const createdProject = makeProject(
+      '22222222-2222-2222-2222-222222222222',
+      'Beacon Refresh',
+      'Ravi Patel',
+      'At Risk',
+      '2026-07-04T22:00:00.000Z'
+    );
+    const pendingSummary = new Promise<DashboardSummary>(() => undefined);
+    const pendingProjects = new Promise<ProjectResponse[]>(() => undefined);
+
+    mockedFetchDashboardSummary.mockResolvedValueOnce(initialSummary);
+    mockedFetchProjects.mockResolvedValueOnce(initialProjects);
+    mockedFetchProjects.mockResolvedValueOnce(initialProjects);
+    mockedCreateProject.mockResolvedValueOnce(createdProject);
+    mockedFetchDashboardSummary.mockImplementationOnce(() => pendingSummary);
+    mockedFetchProjects.mockImplementationOnce(() => pendingProjects);
+
+    renderAtRoute('#/dashboard');
+
+    await waitFor(() => {
+      expect(mockedFetchDashboardSummary).toHaveBeenCalledTimes(1);
+      expect(mockedFetchProjects).toHaveBeenCalledTimes(1);
+    });
+    await waitFor(() => {
+      expect(screen.getByRole('table', { name: /recent projects/i })).toHaveTextContent(
+        'Atlas Migration'
+      );
+    });
+
+    await user.click(screen.getByRole('link', { name: /projects/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('table', { name: /projects/i })).toHaveTextContent('Atlas Migration');
+    });
+
+    await user.type(await screen.findByLabelText(/project name/i), 'Beacon Refresh');
+    await user.type(screen.getByLabelText(/owner name/i), 'Ravi Patel');
+    await user.selectOptions(screen.getByRole('combobox', { name: /^status$/i }), 'At Risk');
+    await user.click(screen.getByRole('button', { name: /create project/i }));
+
+    await waitFor(() => {
+      expect(mockedCreateProject).toHaveBeenCalledWith({
+        name: 'Beacon Refresh',
+        ownerName: 'Ravi Patel',
+        status: 'At Risk',
+      });
+    });
+
+    await user.click(screen.getByRole('link', { name: /dashboard/i }));
+
+    expect(screen.getByText(/total projects/i)).toHaveTextContent('2');
+    expect(screen.getByRole('table', { name: /recent projects/i })).toHaveTextContent('Beacon Refresh');
+  });
+
+
   it('should_display_the_api_validation_message_verbatim_when_create_submission_returns_400', async () => {
     const user = userEvent.setup();
 

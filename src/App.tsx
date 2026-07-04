@@ -110,13 +110,11 @@ export const App = (): JSX.Element => {
     flushSync(() => {
       setProjects((currentProjects) => {
         const nextProjects = [project, ...currentProjects.filter(({ id }) => id !== project.id)];
-        if (route === '/dashboard') {
-          setSummary(buildSummary(nextProjects));
-        }
+        setSummary(buildSummary(nextProjects));
         return nextProjects;
       });
     });
-  }, [route]);
+  }, []);
 
   const handleCreateProject = useCallback(async (request: CreateProjectRequest): Promise<ProjectResponse> => {
     return createProject(request);
