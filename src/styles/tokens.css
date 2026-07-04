@@ -1,0 +1,35 @@
+:root{
+  --pp-primary:#3B82F6;
+  --pp-secondary:#60A5FA;
+  --pp-neutral:#64748B;
+  --pp-success:#10B981;
+  --pp-warning:#F59E0B;
+  --pp-error:#EF4444;
+  --pp-info:#06B6D4;
+  --pp-background:#0F1419;
+  --pp-surface:#1A2332;
+  --pp-border:#2A3648;
+  --pp-text:#E2E8F0;
+  --pp-muted:#94A3B8;
+  --pp-font:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --pp-radius-sm:4px;
+  --pp-radius-md:8px;
+  --pp-radius-lg:12px;
+  --pp-radius-full:9999px;
+  --pp-shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --pp-shadow-md:0 4px 12px rgba(0,0,0,.5);
+  --pp-shadow-lg:0 12px 32px rgba(0,0,0,.6);
+  --pp-white:#FFFFFF;
+  --pp-success-bg:rgba(16,185,129,.15);
+  --pp-success-border:rgba(16,185,129,.4);
+  --pp-warning-bg:rgba(245,158,11,.15);
+  --pp-warning-border:rgba(245,158,11,.4);
+  --pp-error-bg:rgba(239,68,68,.15);
+  --pp-error-border:rgba(239,68,68,.4);
+  --pp-info-bg:rgba(6,182,212,.15);
+  --pp-info-border:rgba(6,182,212,.4);
+  --pp-success-message-bg:rgba(16,185,129,.12);
+  --pp-success-message-border:rgba(16,185,129,.3);
+  --pp-error-message-bg:rgba(239,68,68,.12);
+  --pp-error-message-border:rgba(239,68,68,.3);
+}

@@ -10,7 +10,7 @@ export interface ProjectResponse {
   id: string;
   name: string;
   ownerName: string;
-  status: string;
+  status: ProjectStatus;
   createdAt: string;
 }
 
@@ -21,6 +21,8 @@ export interface DashboardSummary {
   blocked: number;
   onHold: number;
 }
+
+export type AppRoute = '/dashboard' | '/projects';
 
 export interface ErrorResponse {
   message: string;
