@@ -50,7 +50,11 @@ export function DashboardPage(): JSX.Element {
         }
 
         setSummary(summaryResponse);
-        setProjects(projectsResponse.slice(0, 5));
+        setProjects(
+          [...projectsResponse]
+            .sort((firstProject, secondProject) => new Date(secondProject.createdAt).getTime() - new Date(firstProject.createdAt).getTime())
+            .slice(0, 5),
+        );
         setErrorMessage('');
       } catch (error) {
         if (!isMounted) {
