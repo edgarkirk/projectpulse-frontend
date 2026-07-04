@@ -8,11 +8,13 @@ describe('StatusTag', () => {
     render(<StatusTag status="Active" />);
 
     expect(screen.getByText('Active')).toHaveClass('pp-tag--success');
+    expect(screen.getByLabelText('Status: Active')).toBeInTheDocument();
   });
 
   test('should render an info badge for On Hold projects', () => {
     render(<StatusTag status="On Hold" />);
 
     expect(screen.getByText('On Hold')).toHaveClass('pp-tag--info');
+    expect(screen.getByLabelText('Status: On Hold')).toBeInTheDocument();
   });
 });

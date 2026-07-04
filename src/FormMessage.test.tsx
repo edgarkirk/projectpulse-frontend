@@ -14,7 +14,7 @@ describe('FormMessage', () => {
   test('should render success feedback', () => {
     render(<FormMessage variant="success" message="Project created" />);
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Project created');
-    expect(screen.getByRole('alert')).toHaveClass('pp-form-message--success');
+    expect(screen.getByRole('status')).toHaveTextContent('Project created');
+    expect(screen.getByRole('status')).toHaveClass('pp-form-message--success');
   });
 });

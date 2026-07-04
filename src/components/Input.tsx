@@ -1,4 +1,5 @@
 import React from 'react';
+import './Input.css';
 
 export interface InputProps {
   id: string;

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Button.css';
 
 export interface ButtonProps {
   children?: React.ReactNode;
@@ -24,6 +25,7 @@ export function Button(props: ButtonProps): JSX.Element {
       disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
+      title={ariaLabel}
     >
       {children}
     </button>

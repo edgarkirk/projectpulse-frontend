@@ -1,4 +1,5 @@
 import React from 'react';
+import './KpiCard.css';
 
 export interface KpiCardProps {
   label: string;

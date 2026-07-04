@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './DashboardPage.css';
 import { fetchDashboardSummary, fetchProjects, type DashboardSummary, type ProjectResponse } from '../api';
 import { DataTable } from '../components/DataTable';
 import { KpiCard } from '../components/KpiCard';

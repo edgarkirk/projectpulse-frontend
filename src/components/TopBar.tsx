@@ -1,4 +1,5 @@
 import React from 'react';
+import './TopBar.css';
 
 export interface TopBarProps {
   title?: string;

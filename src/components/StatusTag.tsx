@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ProjectStatus } from '../api';
+import './StatusTag.css';
 
 export interface StatusTagProps {
   status: ProjectStatus | string;
@@ -16,7 +17,7 @@ export function StatusTag({ status }: StatusTagProps): JSX.Element {
   const statusClass = statusClassMap[status] ?? 'pp-tag--neutral';
 
   return (
-    <span className={`pp-tag ${statusClass}`}>
+    <span className={`pp-tag ${statusClass}`} aria-label={`Status: ${status}`}>
       {status}
     </span>
   );

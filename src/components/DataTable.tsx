@@ -1,4 +1,5 @@
 import React from 'react';
+import './DataTable.css';
 
 export interface DataTableProps {
   title: string;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './ProjectsPage.css';
 import { createProject, fetchProjects, type CreateProjectRequest, type ProjectResponse, type ProjectStatus } from '../api';
 import { Button } from '../components/Button';
 import { DataTable } from '../components/DataTable';
