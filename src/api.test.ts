@@ -179,7 +179,7 @@ describe('api module', () => {
       name: 'Atlas Migration',
       ownerName: 'Jane Doe',
       status: 'Paused',
-    } as CreateProjectRequest;
+    } as unknown as CreateProjectRequest;
 
     (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce(
       createJsonResponse(
