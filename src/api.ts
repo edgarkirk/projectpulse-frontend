@@ -1,23 +1,57 @@
 import type { CreateProjectRequest, DashboardSummary, ProjectResponse } from './types';
 
-const TODO_MESSAGE = 'TODO: implement api module';
-
-function throwTodo(functionName: string): never {
-  throw new Error(`${TODO_MESSAGE}: ${functionName}`);
+interface MessagePayload {
+  message: unknown;
 }
 
-export async function createProject(_request: CreateProjectRequest): Promise<ProjectResponse> {
-  return throwTodo('createProject');
+function hasMessage(payload: unknown): payload is MessagePayload {
+  return typeof payload === 'object' && payload !== null && 'message' in payload;
+}
+
+function readErrorMessage(payload: unknown, fallbackMessage: string): string {
+  if (hasMessage(payload) && typeof payload.message === 'string' && payload.message.trim().length > 0) {
+    return payload.message;
+  }
+
+  return fallbackMessage;
+}
+
+async function requestJson<T>(input: string, init?: RequestInit): Promise<T> {
+  const response = init === undefined ? await fetch(input) : await fetch(input, init);
+
+  if (!response.ok) {
+    let errorBody: unknown = null;
+
+    try {
+      errorBody = await response.json();
+    } catch {
+      errorBody = null;
+    }
+
+    throw new Error(readErrorMessage(errorBody, response.statusText || 'Request failed'));
+  }
+
+  return await response.json();
+}
+
+export async function createProject(request: CreateProjectRequest): Promise<ProjectResponse> {
+  return requestJson<ProjectResponse>('/api/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
 }
 
 export async function fetchProjects(): Promise<ProjectResponse[]> {
-  return throwTodo('fetchProjects');
+  return requestJson<ProjectResponse[]>('/api/projects');
 }
 
-export async function fetchProjectById(_id: string): Promise<ProjectResponse> {
-  return throwTodo('fetchProjectById');
+export async function fetchProjectById(id: string): Promise<ProjectResponse> {
+  return requestJson<ProjectResponse>(`/api/projects/${id}`);
 }
 
 export async function fetchDashboardSummary(): Promise<DashboardSummary> {
-  return throwTodo('fetchDashboardSummary');
+  return requestJson<DashboardSummary>('/api/dashboard/summary');
 }

@@ -1,0 +1,17 @@
+.pp-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pp-dashboard__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pp-dashboard__table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
