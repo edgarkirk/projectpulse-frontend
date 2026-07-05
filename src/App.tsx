@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
+import './App.css';
 import { Dashboard } from './Dashboard';
 import { Projects } from './Projects';
 
 type Route = 'dashboard' | 'projects';
+
+interface NavItem {
+  route: Route;
+  label: string;
+  icon: string;
+}
+
+const navItems: ReadonlyArray<NavItem> = [
+  { route: 'dashboard', label: 'Dashboard', icon: '📊' },
+  { route: 'projects', label: 'Projects', icon: '📁' },
+];
 
 function getRouteFromHash(hash: string): Route {
   if (hash === '#/projects') {
@@ -35,22 +47,34 @@ export function App() {
     setRoute(nextRoute);
   };
 
-  const isDashboard = route === 'dashboard';
-
   return (
-    <div>
-      <header>
-        <div>ProjectPulse</div>
+    <div className="pp-dash">
+      <header className="pp-topnav">
+        <div className="pp-topnav__brand">ProjectPulse</div>
       </header>
-      <aside aria-label="sidebar">
-        <button type="button" aria-current={isDashboard ? 'page' : undefined} onClick={() => navigate('dashboard')}>
-          Dashboard
-        </button>
-        <button type="button" aria-current={isDashboard ? undefined : 'page'} onClick={() => navigate('projects')}>
-          Projects
-        </button>
-      </aside>
-      {isDashboard ? <Dashboard /> : <Projects />}
+      <div className="pp-dash__body">
+        <nav className="pp-sidebar" aria-label="Main navigation">
+          {navItems.map((item) => {
+            const isActive = route === item.route;
+
+            return (
+              <button
+                key={item.route}
+                type="button"
+                className={`pp-sidebar__item${isActive ? ' pp-sidebar__item--active' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+                onClick={() => navigate(item.route)}
+              >
+                <span className="pp-sidebar__icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <span className="pp-sidebar__label">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <main className="pp-dash__content">{route === 'dashboard' ? <Dashboard /> : <Projects />}</main>
+      </div>
     </div>
   );
 }

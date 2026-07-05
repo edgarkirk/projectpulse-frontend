@@ -1,0 +1,9 @@
+.pp-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pp-projects__error {
+  margin: 0;
+}

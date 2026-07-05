@@ -1,0 +1,34 @@
+.pp-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.pp-kpi {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pp-kpi__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pp-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pp-kpi__value {
+  font-size: 28px;
+  font-weight: 700;
+}

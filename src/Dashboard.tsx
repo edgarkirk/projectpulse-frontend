@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './Dashboard.css';
 import { fetchDashboardSummary, fetchProjects } from './api';
 import { ProjectList } from './ProjectList';
 import { DashboardSummary, ProjectResponse } from './types';
@@ -21,10 +22,7 @@ export function Dashboard() {
 
     const loadDashboard = async () => {
       try {
-        const [nextSummary, nextProjects] = await Promise.all([
-          fetchDashboardSummary(),
-          fetchProjects(),
-        ]);
+        const [nextSummary, nextProjects] = await Promise.all([fetchDashboardSummary(), fetchProjects()]);
 
         if (!isMounted) {
           return;
@@ -48,19 +46,25 @@ export function Dashboard() {
 
   if (error) {
     return (
-      <main>
-        <h1>Dashboard</h1>
-        <p role="alert">{error}</p>
-      </main>
+      <section className="pp-dashboard">
+        <div className="pp-page-head">
+          <h1>Dashboard</h1>
+        </div>
+        <p role="alert" className="pp-msg pp-msg--error">
+          {error}
+        </p>
+      </section>
     );
   }
 
   if (!summary) {
     return (
-      <main>
-        <h1>Dashboard</h1>
+      <section className="pp-dashboard">
+        <div className="pp-page-head">
+          <h1>Dashboard</h1>
+        </div>
         <p>Loading dashboard...</p>
-      </main>
+      </section>
     );
   }
 
@@ -74,21 +78,24 @@ export function Dashboard() {
   ];
 
   return (
-    <main>
-      <h1>Dashboard</h1>
-      <section aria-label="dashboard kpis">
+    <section className="pp-dashboard">
+      <div className="pp-page-head">
+        <h1>Dashboard</h1>
+      </div>
+
+      <section aria-label="dashboard kpis" className="pp-kpi-grid">
         {kpiCards.map((card) => (
-          <article key={card.label} aria-label={card.label}>
-            <h2>{card.label}</h2>
-            <p>{card.value}</p>
+          <article key={card.label} className="pp-kpi" aria-label={card.label}>
+            <h2 className="pp-kpi__label">{card.label}</h2>
+            <p className="pp-kpi__value">{card.value}</p>
           </article>
         ))}
       </section>
 
-      <section aria-label="recent projects">
-        <h2>Recent Projects</h2>
+      <section aria-label="recent projects" className="pp-table-wrap">
+        <h3 className="pp-table-title">Recent Projects</h3>
         <ProjectList projects={recentProjects} />
       </section>
-    </main>
+    </section>
   );
 }
