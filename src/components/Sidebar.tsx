@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react';
+
 import './Sidebar.css';
 
 export type RouteHash = '#/dashboard' | '#/projects';
@@ -13,10 +15,10 @@ export interface SidebarProps {
 }
 
 export const Sidebar = ({ activeRoute, onNavigate }: SidebarProps) => {
-  const handleNavigate = (route: RouteHash): void => {
-    if (onNavigate) {
-      onNavigate(route);
-    }
+  const handleNavigate = (event: MouseEvent<HTMLAnchorElement>, route: RouteHash): void => {
+    event.preventDefault();
+    window.location.hash = route;
+    onNavigate?.(route);
   };
 
   return (
@@ -30,7 +32,7 @@ export const Sidebar = ({ activeRoute, onNavigate }: SidebarProps) => {
             className={`pp-sidebar__item${isActive ? ' pp-sidebar__item--active' : ''}`}
             href={item.route}
             aria-current={isActive ? 'page' : undefined}
-            onClick={() => handleNavigate(item.route)}
+            onClick={(event) => handleNavigate(event, item.route)}
           >
             <span className='pp-sidebar__icon' aria-hidden='true'>
               {item.icon}

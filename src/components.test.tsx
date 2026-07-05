@@ -198,15 +198,19 @@ describe('Sidebar', () => {
     expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
   });
 
-  it('should call onNavigate with the projects route when clicked', async () => {
+  it('should prevent the default link navigation and call onNavigate with the projects route when clicked', async () => {
     const user = userEvent.setup();
     const handleNavigate = jest.fn();
+    const preventDefaultSpy = jest.spyOn(Event.prototype, 'preventDefault');
 
     render(<Sidebar activeRoute='#/dashboard' onNavigate={handleNavigate} />);
 
     await user.click(screen.getByRole('link', { name: /projects/i }));
 
+    expect(preventDefaultSpy).toHaveBeenCalled();
     expect(handleNavigate).toHaveBeenCalledWith('#/projects');
+
+    preventDefaultSpy.mockRestore();
   });
 
   it('should visually mark the dashboard route when it is active', () => {
