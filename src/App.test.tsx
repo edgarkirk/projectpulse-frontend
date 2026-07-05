@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from './App';
 
@@ -19,6 +19,13 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByText('ProjectPulse')).toBeInTheDocument();
+  });
+
+  it('should normalize the dashboard route into the URL on initial load', async () => {
+    render(<App />);
+
+    await waitFor(() => expect(window.location.hash).toBe('#/dashboard'));
+    expect(screen.getByRole('heading', { name: /dashboard/i })).toBeInTheDocument();
   });
 
   it('should navigate from the dashboard to the projects page without a full reload and update the active sidebar item', async () => {

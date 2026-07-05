@@ -17,11 +17,14 @@ const navItems: ReadonlyArray<NavItem> = [
 ];
 
 function getRouteFromHash(hash: string): Route {
-  if (hash === '#/projects') {
-    return 'projects';
+  switch (hash) {
+    case '#/dashboard':
+      return 'dashboard';
+    case '#/projects':
+      return 'projects';
+    default:
+      return 'dashboard';
   }
-
-  return 'dashboard';
 }
 
 export function App() {
@@ -33,6 +36,10 @@ export function App() {
     };
 
     window.addEventListener('hashchange', handleHashChange);
+
+    if (window.location.hash !== '#/dashboard' && window.location.hash !== '#/projects') {
+      window.location.hash = '#/dashboard';
+    }
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
