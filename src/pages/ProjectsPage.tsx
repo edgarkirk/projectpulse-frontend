@@ -84,6 +84,8 @@ export function ProjectsPage(): JSX.Element {
       setMessage(null);
 
       if (!isProjectStatus(status)) {
+        setMessage(status ? 'Status must be one of Active, At Risk, Blocked, On Hold' : 'Status is required');
+        setMessageVariant('error');
         return;
       }
 

@@ -90,4 +90,19 @@ describe('ProjectsPage', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent(message);
   });
+
+  it('should show a validation message when status is missing', async () => {
+    const user = userEvent.setup();
+
+    mockedGetProjects.mockResolvedValueOnce([]);
+
+    render(<ProjectsPage />);
+
+    await user.type(await screen.findByLabelText(/project name/i), 'Atlas Migration');
+    await user.type(screen.getByLabelText(/owner name/i), 'Jane Doe');
+    await user.click(screen.getByRole('button', { name: /create project/i }));
+
+    expect(mockedCreateProject).not.toHaveBeenCalled();
+    expect(await screen.findByRole('alert')).toHaveTextContent(/status is required/i);
+  });
 });
