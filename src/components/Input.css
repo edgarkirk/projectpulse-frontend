@@ -1,0 +1,32 @@
+.pp-field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.pp-field__label {
+  color: var(--pp-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pp-input {
+  padding: 8px 12px;
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-md);
+  background: var(--pp-background);
+  color: var(--pp-text);
+  font-family: var(--pp-font);
+  font-size: 14px;
+}
+
+.pp-input::placeholder {
+  color: var(--pp-muted);
+}
+
+.pp-input:focus-visible {
+  outline: 2px solid var(--pp-primary);
+  outline-offset: 1px;
+}

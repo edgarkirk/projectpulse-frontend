@@ -1,0 +1,28 @@
+.pp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--pp-radius-md);
+  cursor: pointer;
+  font-family: var(--pp-font);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pp-btn:focus-visible {
+  outline: 2px solid var(--pp-primary);
+  outline-offset: 2px;
+}
+
+.pp-btn--primary {
+  background: var(--pp-primary);
+  color: var(--pp-white);
+}
+
+.pp-btn--primary:hover {
+  background: var(--pp-secondary);
+}

@@ -1,0 +1,38 @@
+.pp-table-wrap {
+  overflow: hidden;
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  background: var(--pp-surface);
+}
+
+.pp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pp-table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pp-border);
+  color: var(--pp-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.pp-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pp-border);
+  font-size: 14px;
+}
+
+.pp-table tbody tr:hover {
+  background: var(--pp-background);
+}
+
+.pp-table__empty {
+  color: var(--pp-muted);
+  font-size: 14px;
+  text-align: center;
+}

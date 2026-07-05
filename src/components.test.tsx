@@ -9,6 +9,7 @@ import { Select } from './components/Select';
 import { Sidebar } from './components/Sidebar';
 import { StatusTag } from './components/StatusTag';
 import { TopBar } from './components/TopBar';
+import type { ProjectStatus } from './types/project';
 
 describe('Button', () => {
   it('should render the provided button text', () => {
@@ -50,7 +51,7 @@ describe('Button', () => {
 
 describe('Input', () => {
   it('should render a labelled text input', () => {
-    render(<Input label="Project Name" value="" onChange={jest.fn()} />);
+    render(<Input label='Project Name' value='' onChange={jest.fn()} />);
 
     expect(screen.getByLabelText(/project name/i)).toBeInTheDocument();
   });
@@ -59,7 +60,7 @@ describe('Input', () => {
     const user = userEvent.setup();
     const handleChange = jest.fn();
 
-    render(<Input label="Project Name" value="" onChange={handleChange} />);
+    render(<Input label='Project Name' value='' onChange={handleChange} />);
 
     await user.type(screen.getByLabelText(/project name/i), 'Atlas Migration');
 
@@ -70,7 +71,7 @@ describe('Input', () => {
     const user = userEvent.setup();
     const handleChange = jest.fn();
 
-    render(<Input label="Project Name" value="" onChange={handleChange} disabled />);
+    render(<Input label='Project Name' value='' onChange={handleChange} disabled />);
 
     const input = screen.getByLabelText(/project name/i);
 
@@ -89,7 +90,7 @@ describe('Select', () => {
   ];
 
   it('should render all select options', () => {
-    render(<Select label="Status" value="Active" options={options} onChange={jest.fn()} />);
+    render(<Select label='Status' value='Active' options={options} onChange={jest.fn()} />);
 
     expect(screen.getByLabelText(/status/i)).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /active/i })).toBeInTheDocument();
@@ -100,7 +101,7 @@ describe('Select', () => {
     const user = userEvent.setup();
     const handleChange = jest.fn();
 
-    render(<Select label="Status" value="Active" options={options} onChange={handleChange} />);
+    render(<Select label='Status' value='Active' options={options} onChange={handleChange} />);
 
     await user.selectOptions(screen.getByLabelText(/status/i), 'At Risk');
 
@@ -111,7 +112,7 @@ describe('Select', () => {
     const user = userEvent.setup();
     const handleChange = jest.fn();
 
-    render(<Select label="Status" value="Active" options={options} onChange={handleChange} disabled />);
+    render(<Select label='Status' value='Active' options={options} onChange={handleChange} disabled />);
 
     const select = screen.getByLabelText(/status/i);
 
@@ -124,12 +125,14 @@ describe('Select', () => {
 });
 
 describe('StatusTag', () => {
-  it.each([
-    ['Active', 'green'],
-    ['At Risk', 'amber'],
-    ['Blocked', 'red'],
-    ['On Hold', 'cyan'],
-  ] as const)('should render a %s badge with %s tone', (status, tone) => {
+  const statusTones: Array<[ProjectStatus, 'success' | 'warning' | 'error' | 'info']> = [
+    ['Active', 'success'],
+    ['At Risk', 'warning'],
+    ['Blocked', 'error'],
+    ['On Hold', 'info'],
+  ];
+
+  it.each(statusTones)('should render a %s badge with %s tone', (status, tone) => {
     render(<StatusTag status={status} />);
 
     const badge = screen.getByRole('status');
@@ -141,14 +144,14 @@ describe('StatusTag', () => {
 
 describe('KpiCard', () => {
   it('should render the KPI label and numeric value', () => {
-    render(<KpiCard label="Total Projects" value={6} />);
+    render(<KpiCard label='Total Projects' value={6} />);
 
     expect(screen.getByText('Total Projects')).toBeInTheDocument();
     expect(screen.getByText('6')).toBeInTheDocument();
   });
 
   it('should render zero values clearly', () => {
-    render(<KpiCard label="On Hold" value={0} />);
+    render(<KpiCard label='On Hold' value={0} />);
 
     expect(screen.getByText('0')).toBeInTheDocument();
   });
@@ -172,7 +175,7 @@ describe('DataTable', () => {
   });
 
   it('should render the empty state message when there are no rows', () => {
-    render(<DataTable headers={['Name']} rows={[]} emptyMessage="No projects found" />);
+    render(<DataTable headers={['Name']} rows={[]} emptyMessage='No projects found' />);
 
     expect(screen.getByText('No projects found')).toBeInTheDocument();
   });
@@ -188,7 +191,7 @@ describe('TopBar', () => {
 
 describe('Sidebar', () => {
   it('should render dashboard and projects navigation items', () => {
-    render(<Sidebar activeRoute="#/dashboard" onNavigate={jest.fn()} />);
+    render(<Sidebar activeRoute='#/dashboard' onNavigate={jest.fn()} />);
 
     expect(screen.getByRole('navigation')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /dashboard/i })).toBeInTheDocument();
@@ -199,7 +202,7 @@ describe('Sidebar', () => {
     const user = userEvent.setup();
     const handleNavigate = jest.fn();
 
-    render(<Sidebar activeRoute="#/dashboard" onNavigate={handleNavigate} />);
+    render(<Sidebar activeRoute='#/dashboard' onNavigate={handleNavigate} />);
 
     await user.click(screen.getByRole('link', { name: /projects/i }));
 
@@ -207,14 +210,14 @@ describe('Sidebar', () => {
   });
 
   it('should visually mark the dashboard route when it is active', () => {
-    render(<Sidebar activeRoute="#/dashboard" onNavigate={jest.fn()} />);
+    render(<Sidebar activeRoute='#/dashboard' onNavigate={jest.fn()} />);
 
     expect(screen.getByRole('link', { name: /dashboard/i })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByRole('link', { name: /projects/i })).not.toHaveAttribute('aria-current', 'page');
   });
 
   it('should visually mark the projects route when it is active', () => {
-    render(<Sidebar activeRoute="#/projects" onNavigate={jest.fn()} />);
+    render(<Sidebar activeRoute='#/projects' onNavigate={jest.fn()} />);
 
     expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByRole('link', { name: /dashboard/i })).not.toHaveAttribute('aria-current', 'page');

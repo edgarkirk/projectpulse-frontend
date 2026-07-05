@@ -1,8 +1,15 @@
+import './KpiCard.css';
+
 export interface KpiCardProps {
   label: string;
   value: number;
 }
 
-export function KpiCard(_props: KpiCardProps): null {
-  return null;
-}
+export const KpiCard = ({ label, value }: KpiCardProps) => {
+  return (
+    <article className='pp-kpi'>
+      <div className='pp-kpi__label'>{label}</div>
+      <div className='pp-kpi__value'>{value}</div>
+    </article>
+  );
+};

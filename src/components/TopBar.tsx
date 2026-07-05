@@ -1,7 +1,13 @@
+import './TopBar.css';
+
 export interface TopBarProps {
   applicationName?: string;
 }
 
-export function TopBar(_props: TopBarProps): null {
-  return null;
-}
+export const TopBar = ({ applicationName = 'ProjectPulse' }: TopBarProps) => {
+  return (
+    <header className='pp-topnav'>
+      <div className='pp-topnav__brand'>{applicationName}</div>
+    </header>
+  );
+};

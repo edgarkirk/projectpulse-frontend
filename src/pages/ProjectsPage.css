@@ -1,0 +1,57 @@
+.pp-page-head {
+  margin-bottom: 0;
+}
+
+.pp-page-head h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.pp-form-wrap {
+  padding: 20px;
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  background: var(--pp-surface);
+}
+
+.pp-form-title {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pp-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.pp-msg {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--pp-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pp-msg--success {
+  border-color: var(--pp-success-msg-border);
+  background: var(--pp-success-msg-bg);
+  color: var(--pp-success);
+}
+
+.pp-msg--error {
+  border-color: var(--pp-error-msg-border);
+  background: var(--pp-error-msg-bg);
+  color: var(--pp-error);
+}
+
+.pp-table-title {
+  margin: 0;
+  padding: 16px 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
