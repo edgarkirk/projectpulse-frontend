@@ -24,29 +24,36 @@ export function CreateProjectForm({ onSubmit }: CreateProjectFormProps) {
   const [name, setName] = useState('');
   const [ownerName, setOwnerName] = useState('');
   const [status, setStatus] = useState<ProjectStatus>('Active');
-  const [feedback, setFeedback] = useState<{ kind: 'success' | 'error'; message: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFeedback(null);
+    setError(null);
+    setSuccessMessage(null);
 
     try {
       await onSubmit({ name, ownerName, status });
       setName('');
       setOwnerName('');
       setStatus('Active');
-      setFeedback({ kind: 'success', message: 'Project created successfully' });
+      setSuccessMessage('Project created successfully');
     } catch (error) {
-      setFeedback({ kind: 'error', message: getErrorMessage(error) });
+      setError(getErrorMessage(error));
     }
   };
 
   return (
     <section className="pp-form-wrap">
       <h3 className="pp-form-title">Create Project</h3>
-      {feedback ? (
-        <p role={feedback.kind === 'error' ? 'alert' : 'status'} className={`pp-msg pp-msg--${feedback.kind}`}>
-          {feedback.message}
+      {error ? (
+        <p role="alert" className="pp-msg pp-msg--error">
+          {error}
+        </p>
+      ) : null}
+      {successMessage ? (
+        <p role="status" className="pp-msg pp-msg--success">
+          {successMessage}
         </p>
       ) : null}
       <form aria-label="create project form" className="pp-form" onSubmit={handleSubmit}>
