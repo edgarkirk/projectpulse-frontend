@@ -1,0 +1,15 @@
+.pp-page-head {
+  margin-bottom: 0;
+}
+
+.pp-page-head h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}

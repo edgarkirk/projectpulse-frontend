@@ -1,3 +1,9 @@
+import './TopBar.css';
+
 export function TopBar(): JSX.Element {
-  throw new Error('TODO: implement TopBar');
+  return (
+    <header className="pp-topnav">
+      <div className="pp-topnav__brand">ProjectPulse</div>
+    </header>
+  );
 }

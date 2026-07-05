@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import './Button.css';
 
 export interface ButtonProps {
   children: ReactNode;
@@ -7,10 +8,10 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
 }
 
-export function Button({ children, disabled, onClick, type }: ButtonProps): JSX.Element {
-  void children;
-  void disabled;
-  void onClick;
-  void type;
-  throw new Error('TODO: implement Button');
+export function Button({ children, disabled = false, onClick, type = 'button' }: ButtonProps): JSX.Element {
+  return (
+    <button className="pp-btn pp-btn--primary" disabled={disabled} onClick={onClick} type={type}>
+      {children}
+    </button>
+  );
 }

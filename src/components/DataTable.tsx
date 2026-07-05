@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import './DataTable.css';
 
 export interface DataTableColumn {
   header: string;
@@ -16,8 +17,29 @@ export interface DataTableProps {
 }
 
 export function DataTable({ caption, columns, rows }: DataTableProps): JSX.Element {
-  void caption;
-  void columns;
-  void rows;
-  throw new Error('TODO: implement DataTable');
+  return (
+    <div className="pp-table-wrap">
+      <h3 className="pp-table-title">{caption}</h3>
+      <table aria-label={caption} className="pp-table">
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column.header} scope="col">
+                {column.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.key}>
+              {row.cells.map((cell, index) => (
+                <td key={index}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }

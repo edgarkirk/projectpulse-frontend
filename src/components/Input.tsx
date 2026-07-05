@@ -1,4 +1,5 @@
 import type { ChangeEventHandler } from 'react';
+import './Input.css';
 
 export interface InputProps {
   label: string;
@@ -11,14 +12,23 @@ export interface InputProps {
   maxLength?: number;
 }
 
-export function Input({ label, name, onChange, placeholder, required, type, value, maxLength }: InputProps): JSX.Element {
-  void label;
-  void name;
-  void onChange;
-  void placeholder;
-  void required;
-  void type;
-  void value;
-  void maxLength;
-  throw new Error('TODO: implement Input');
+export function Input({ label, name, onChange, placeholder, required, type = 'text', value, maxLength }: InputProps): JSX.Element {
+  return (
+    <div className="pp-field">
+      <label className="pp-field__label" htmlFor={name}>
+        {label}
+      </label>
+      <input
+        className="pp-input"
+        id={name}
+        maxLength={maxLength}
+        name={name}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+        type={type}
+        value={value}
+      />
+    </div>
+  );
 }

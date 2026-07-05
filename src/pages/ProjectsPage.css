@@ -1,0 +1,29 @@
+.pp-page-head {
+  margin-bottom: 0;
+}
+
+.pp-page-head h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pp-form-wrap {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  padding: 20px;
+}
+
+.pp-form-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.pp-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}

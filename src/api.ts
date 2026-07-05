@@ -1,17 +1,55 @@
 import type { CreateProjectRequest, DashboardSummary, ProjectResponse } from './types';
 
-export async function createProject(_request: CreateProjectRequest): Promise<ProjectResponse> {
-  throw new Error('TODO: implement createProject');
+interface ErrorPayload {
+  message?: string;
+}
+
+async function readJsonResponse<T>(response: Response): Promise<T> {
+  const data: T = await response.json();
+  return data;
+}
+
+async function readErrorMessage(response: Response): Promise<string> {
+  try {
+    const payload: ErrorPayload = await response.json();
+    if (typeof payload.message === 'string' && payload.message.length > 0) {
+      return payload.message;
+    }
+  } catch {
+    // Fall through to a generic error message.
+  }
+
+  return `Request failed with status ${response.status}`;
+}
+
+async function requestJson<T>(input: RequestInfo | URL, init?: RequestInit): Promise<T> {
+  const response = await fetch(input, init);
+
+  if (!response.ok) {
+    throw new Error(await readErrorMessage(response));
+  }
+
+  return readJsonResponse<T>(response);
+}
+
+export async function createProject(request: CreateProjectRequest): Promise<ProjectResponse> {
+  return requestJson<ProjectResponse>('/api/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
 }
 
 export async function getProjects(): Promise<ReadonlyArray<ProjectResponse>> {
-  throw new Error('TODO: implement getProjects');
+  return requestJson<ReadonlyArray<ProjectResponse>>('/api/projects');
 }
 
-export async function getProjectById(_id: string): Promise<ProjectResponse> {
-  throw new Error('TODO: implement getProjectById');
+export async function getProjectById(id: string): Promise<ProjectResponse> {
+  return requestJson<ProjectResponse>(`/api/projects/${encodeURIComponent(id)}`);
 }
 
 export async function getDashboardSummary(): Promise<DashboardSummary> {
-  throw new Error('TODO: implement getDashboardSummary');
+  return requestJson<DashboardSummary>('/api/dashboard/summary');
 }
