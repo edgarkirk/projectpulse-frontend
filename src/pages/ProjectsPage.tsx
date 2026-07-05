@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 
 import './ProjectsPage.css';
 
@@ -9,7 +9,6 @@ import { Input } from '../components/Input';
 import { Select, type SelectOption } from '../components/Select';
 import { StatusTag } from '../components/StatusTag';
 import type { ProjectResponse, ProjectStatus } from '../types/project';
-import type { ReactNode } from 'react';
 
 const statusOptions: SelectOption[] = [
   { value: 'Active', label: 'Active' },
@@ -22,22 +21,16 @@ const isProjectStatus = (value: string): value is ProjectStatus => {
   return value === 'Active' || value === 'At Risk' || value === 'Blocked' || value === 'On Hold';
 };
 
-type FeedbackState =
-  | {
-      type: 'success';
-      message: string;
-    }
-  | {
-      type: 'error';
-      message: string;
-    }
-  | null;
+type FeedbackState = {
+  message: string;
+} | null;
 
 export const ProjectsPage = () => {
   const [projects, setProjects] = useState<ProjectResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState>(null);
+  const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [ownerName, setOwnerName] = useState('');
   const [status, setStatus] = useState<ProjectStatus | ''>('');
@@ -83,6 +76,7 @@ export const ProjectsPage = () => {
     }
 
     setFeedback(null);
+    setError(null);
     setIsSubmitting(true);
 
     try {
@@ -97,14 +91,10 @@ export const ProjectsPage = () => {
       setOwnerName('');
       setStatus('');
       setFeedback({
-        type: 'success',
         message: `Project "${createdProject.name}" created successfully.`,
       });
     } catch (caughtError) {
-      setFeedback({
-        type: 'error',
-        message: caughtError instanceof Error ? caughtError.message : 'Failed to create project',
-      });
+      setError(caughtError instanceof Error ? caughtError.message : 'Failed to create project');
     } finally {
       setIsSubmitting(false);
     }
@@ -134,12 +124,12 @@ export const ProjectsPage = () => {
       <div className='pp-form-wrap'>
         <h3 className='pp-form-title'>Create Project</h3>
 
-        {feedback ? (
-          <p
-            className={`pp-msg pp-msg--${feedback.type}`}
-            role={feedback.type === 'error' ? 'alert' : 'status'}
-            aria-label={feedback.message}
-          >
+        {error ? (
+          <p className='pp-msg pp-msg--error' role='alert'>
+            {error}
+          </p>
+        ) : feedback ? (
+          <p className='pp-msg pp-msg--success' role='status' aria-label={feedback.message}>
             {feedback.message}
           </p>
         ) : null}
