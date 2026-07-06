@@ -1,0 +1,44 @@
+.pp-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pp-projects .pp-page-head h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.333;
+}
+
+.pp-form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pp-form-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pp-msg {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--pp-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pp-msg--success {
+  background: var(--pp-success-soft);
+  color: var(--pp-success);
+  border: 1px solid var(--pp-success-soft-border);
+}
+
+.pp-msg--error {
+  background: var(--pp-error-soft);
+  color: var(--pp-error);
+  border: 1px solid var(--pp-error-soft-border);
+}

@@ -1,0 +1,51 @@
+.pp-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 2px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--pp-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pp-tag--compact {
+  min-width: 24px;
+  padding-inline: 8px;
+}
+
+.pp-tag__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--pp-radius-full);
+  background: currentColor;
+}
+
+.pp-tag--success {
+  background: var(--pp-success-soft);
+  color: var(--pp-success);
+  border-color: var(--pp-success-soft-border);
+}
+
+.pp-tag--warning {
+  background: var(--pp-warning-soft);
+  color: var(--pp-warning);
+  border-color: var(--pp-warning-soft-border);
+}
+
+.pp-tag--error {
+  background: var(--pp-error-soft);
+  color: var(--pp-error);
+  border-color: var(--pp-error-soft-border);
+}
+
+.pp-tag--info {
+  background: var(--pp-info-soft);
+  color: var(--pp-info);
+  border-color: var(--pp-info-soft-border);
+}

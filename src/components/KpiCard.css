@@ -1,0 +1,26 @@
+.pp-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  box-shadow: var(--pp-shadow-sm);
+}
+
+.pp-kpi__label {
+  margin: 0;
+  color: var(--pp-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pp-kpi__value {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
