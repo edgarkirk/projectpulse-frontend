@@ -22,7 +22,7 @@ export const ProjectForm = ({ onSubmit }: ProjectFormProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isSubmitDisabled || status === '') {
+    if (isSubmitDisabled) {
       return;
     }
 

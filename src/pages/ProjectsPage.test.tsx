@@ -2,12 +2,13 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProjectsPage } from './ProjectsPage';
 import * as api from '../api';
+import type { ProjectResponse } from '../types';
 
 jest.mock('../api');
 const mockApi = api as jest.Mocked<typeof api>;
 
 describe('ProjectsPage', () => {
-  const initialProjects = [
+  const initialProjects: ProjectResponse[] = [
     {
       id: 'dddddddd-dddd-dddd-dddd-dddddddddddd',
       name: 'Website Redesign',
@@ -17,7 +18,7 @@ describe('ProjectsPage', () => {
     },
   ];
 
-  const createdProject = {
+  const createdProject: ProjectResponse = {
     id: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
     name: 'Atlas Migration',
     ownerName: 'Jane Doe',
