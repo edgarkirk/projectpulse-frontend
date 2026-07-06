@@ -47,12 +47,20 @@ export const ProjectsPage = () => {
 
   const handleCreateProject = async (request: CreateProjectRequest) => {
     setSuccessMessage(null);
-    const createdProject = await createProject(request);
-    setProjects((currentProjects) => [
-      createdProject,
-      ...currentProjects.filter((project) => project.id !== createdProject.id),
-    ]);
-    setSuccessMessage('Project created successfully');
+    setError(null);
+
+    try {
+      const createdProject = await createProject(request);
+      setProjects((currentProjects) => [
+        createdProject,
+        ...currentProjects.filter((project) => project.id !== createdProject.id),
+      ]);
+      setSuccessMessage('Project created successfully');
+    } catch (errorValue) {
+      const message = errorValue instanceof Error ? errorValue.message : 'Failed to create project';
+      setError(message);
+      throw errorValue instanceof Error ? errorValue : new Error(message);
+    }
   };
 
   return (

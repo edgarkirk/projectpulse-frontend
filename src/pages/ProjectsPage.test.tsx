@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ProjectsPage } from './ProjectsPage';
 import * as api from '../api';
 
@@ -80,7 +80,13 @@ describe('ProjectsPage', () => {
     await user.selectOptions(screen.getByLabelText(/status/i), 'Active');
     await user.click(screen.getByRole('button', { name: /create/i }));
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Name is required');
+    await waitFor(() => {
+      expect(screen.getAllByRole('alert')).toHaveLength(2);
+    });
+
+    screen.getAllByRole('alert').forEach((alert) => {
+      expect(alert).toHaveTextContent('Name is required');
+    });
   });
 
   it('should display an error alert when the project list fails to load', async () => {
