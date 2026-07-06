@@ -1,10 +1,13 @@
-import React from 'react';
+import './KpiCard.css';
 
 export interface KpiCardProps {
   label: string;
   value: number;
 }
 
-export function KpiCard(_props: KpiCardProps): JSX.Element | null {
-  return null;
-}
+export const KpiCard = ({ label, value }: KpiCardProps) => (
+  <article className="pp-kpi">
+    <div className="pp-kpi__label">{label}</div>
+    <div className="pp-kpi__value">{value}</div>
+  </article>
+);

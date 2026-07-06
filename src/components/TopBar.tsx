@@ -1,5 +1,7 @@
-import React from 'react';
+import './TopBar.css';
 
-export function TopBar(): JSX.Element | null {
-  return null;
-}
+export const TopBar = () => (
+  <header className="pp-topnav">
+    <div className="pp-topnav__brand">ProjectPulse</div>
+  </header>
+);

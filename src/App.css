@@ -1,0 +1,20 @@
+.pp-dash {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.pp-dash__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.pp-dash__content {
+  flex: 1;
+  padding: 24px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
