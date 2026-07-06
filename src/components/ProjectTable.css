@@ -1,0 +1,32 @@
+.pp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pp-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pp-muted);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pp-border);
+}
+
+.pp-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--pp-border);
+  vertical-align: middle;
+}
+
+.pp-table tbody tr:hover {
+  background: var(--pp-background);
+}
+
+.pp-table__empty {
+  margin: 0;
+  padding: 20px 16px 16px;
+  color: var(--pp-muted);
+  font-size: 14px;
+}

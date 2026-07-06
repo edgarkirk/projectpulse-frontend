@@ -1,0 +1,15 @@
+.pp-topnav {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 20px;
+  background: var(--pp-surface);
+  border-bottom: 1px solid var(--pp-border);
+  box-shadow: var(--pp-shadow-sm);
+}
+
+.pp-topnav__brand {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}

@@ -1,0 +1,14 @@
+.pp-table-wrap {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--pp-shadow-sm);
+}
+
+.pp-table-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 16px 16px 0;
+}

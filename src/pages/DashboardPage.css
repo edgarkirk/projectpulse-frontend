@@ -1,0 +1,11 @@
+.pp-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}

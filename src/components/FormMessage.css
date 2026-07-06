@@ -1,0 +1,19 @@
+.pp-msg {
+  padding: 10px 14px;
+  border-radius: var(--pp-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+}
+
+.pp-msg--success {
+  background: var(--pp-success-message-soft);
+  color: var(--pp-success);
+  border: 1px solid var(--pp-success-message-border);
+}
+
+.pp-msg--error {
+  background: var(--pp-error-message-soft);
+  color: var(--pp-error);
+  border: 1px solid var(--pp-error-message-border);
+}

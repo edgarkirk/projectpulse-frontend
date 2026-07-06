@@ -1,0 +1,12 @@
+.pp-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.pp-form__actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}

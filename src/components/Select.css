@@ -1,0 +1,16 @@
+.pp-select {
+  background: var(--pp-background);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-md);
+  padding: 8px 12px;
+  color: var(--pp-text);
+  font-size: 14px;
+  font-family: var(--pp-font);
+  appearance: none;
+  cursor: pointer;
+}
+
+.pp-select:focus {
+  outline: 2px solid var(--pp-primary);
+  outline-offset: 1px;
+}
